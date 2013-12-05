@@ -1,0 +1,28 @@
+{
+    "name" : "bread/sms",
+    "description" : "sms",
+    "type" : "project",
+    "authors" : [{
+        "name" : "Giovanni Lovato",
+        "email" : "heruan@aldu.net"
+    },
+    {
+        "name" : "Tomasello Alex",
+        "email" : "alex.tomasello@saiv.it"
+    }
+    ],
+        "keywords" : [
+            "bread",
+        "project"
+            ],
+        "license" : "CC-BY-3.0",
+        "require" : {
+            "php" : ">=5.4",
+            "bread/rest" : "~0.1"
+        },
+        "autoload" : {
+            "psr-0" : {
+                "" : "src"
+            }
+        }
+}
