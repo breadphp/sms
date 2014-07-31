@@ -55,13 +55,14 @@ class SMSFarm implements SMS
 
     private $account;
 
-    public function __construct()
+    public function __construct($domain)
     {
         $this->account = array(
-            'login' => CM::get(__CLASS__, 'login'),
-            'password' => CM::get(__CLASS__, 'password'),
-            'proxy' => CM::get(__CLASS__, 'curl.proxy'),
-            'url' => CM::get(__CLASS__, 'url')
+            'login' => CM::get(__CLASS__, 'login', $domain),
+            'password' => CM::get(__CLASS__, 'password', $domain),
+            'proxy' => CM::get(__CLASS__, 'proxy', $domain),
+            'url' => CM::get(__CLASS__, 'url', $domain),
+            'type' => CM::get(__CLASS__, 'type', $domain)
         );
     }
 
@@ -98,7 +99,7 @@ class SMSFarm implements SMS
         $arrayurl = array(
             'login' => $this->account['login'],
             'password' => $this->account['password'],
-            'message_type' => CM::get(__CLASS__, 'message.type'),
+            'message_type' => $this->account['type'],
             'recipient' => $sms->recipient,
             'message' => $sms->message,
             'sender' => $sms->sender,

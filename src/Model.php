@@ -1,5 +1,5 @@
 <?php
-namespace BEST\SMS;
+namespace Bread\SMS;
 
 use Bread\Configuration\Manager as CM;
 use Bread\REST;
@@ -18,7 +18,7 @@ class Model extends REST\Model
     protected $scheduled_delivery_time;
 }
 
-CM::defaults('BEST\SMS\Model', array(
+CM::defaults('Bread\SMS\Model', array(
     'keys' => array(
         'order_id'
     ),
