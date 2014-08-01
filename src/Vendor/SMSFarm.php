@@ -3,6 +3,7 @@ namespace Bread\SMS\Vendor;
 
 use Bread\SMS\Interfaces\SMS;
 use Bread\Configuration\Manager as CM;
+use DateTime;
 
 class SMSFarm implements SMS
 {
@@ -111,26 +112,34 @@ class SMSFarm implements SMS
         return $this->parseResponse($sendresult);
     }
 
-    public function status($sms)
+    public function status($order_id)
     {
         $arrayurl = array(
             'login' => $this->account['login'],
             'password' => $this->account['password'],
-            'order_id' => $sms->order_id
+            'order_id' => $order_id
         );
         $url = "{$this->account['url']}/SMSSTATUS?" . http_build_query($arrayurl);
         $sendresult = $this->curlRequest($url, $this->account['proxy']);
         $status = $this->parseResponse($sendresult, self::$response['status']);
+        $result = array();
         if (empty($status)) {
-            $status['false']['errormessage'] = "SMS non più disponibile";
+            $result['status'] = "SMS non più disponibile";
         } else
             if (! isset($status['false'])) {
-                foreach ($status as &$sms) {
-                    $sms['status'] = self::$parse_status[$sms['status']];
-                    $sms['delivery_date'] = new \DateTime($sms['delivery_date']);
+                $result = array_shift($status);
+                foreach ($result as $key => $value) {
+                    switch ($key) {
+                        case 'status':
+                            $result[$key] = self::$parse_status[$value];
+                            break;
+                        case 'delivery_date':
+                            $result[$key] = new DateTime($value);
+                            break;
+                    }
                 }
             }
-        return $status;
+        return $result;
     }
 
     protected function parseResponse($response, $keys = null)

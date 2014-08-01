@@ -21,8 +21,8 @@
             "bread/rest" : "~0.1"
         },
         "autoload" : {
-            "psr-0" : {
-                "" : "src"
+            "psr-4" : {
+                "Bread\SMS\\" : "src"
             }
         }
 }
