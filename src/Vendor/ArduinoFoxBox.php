@@ -39,8 +39,8 @@ class ArduinoFoxBox implements SMS
 
     public function send($sms)
     {
-        if ($sms->recipient | $sms->message) {
-            throw new Exception("Username, password and message are mandatory");
+        if (!$sms->recipient | !$sms->message) {
+            throw new Exception("Recipient and message are mandatory");
         }
         $arrayurl = array(
             'username' => $this->account['username'],
