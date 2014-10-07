@@ -45,7 +45,7 @@ class ArduinoFoxBox implements SMS
         $arrayurl = array(
             'username' => $this->account['username'],
             'pwd' => $this->account['pwd'],
-            'nphone' => $sms->recipient,
+            'nphone' => trim(trim($sms->recipient, '+')),
             'testo' => $sms->message,
             'from' => $sms->sender
         );
